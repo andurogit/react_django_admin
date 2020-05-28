@@ -1,12 +1,7 @@
 
-
-* image paste with vscode ( Paste Image )
-* hotkey : ctrl + alt + v
-![](2020-05-22-09-51-28.png)
-
 1. python select
 
-# 제 1장 Start
+# 제 1장 RestFrameWork basic
 
 # pipenv 설치
 1. 파이선 가상 머신 생성을 위한 pipenv 설치
@@ -41,7 +36,7 @@
 INSTALLED_APPS = [
     ...
     'leads',
-    'rest_framework' # magrations 할 때 오류남
+    'rest_framework' # magrations 할 때 오류남 ( rest_framework 가 설치되지 않아 생긴 오류 )
 ]
 
 # sample 소스는 각기 소스에서 확인

@@ -23,12 +23,8 @@
     1. > py manage.py runserver
     1. 구동 성공 
 
-# create .gitignore
-1. vscode gitignore extension install
-1. ctl + shift + p : enter the pattlet
-
 # react_django_admin
-backend side : django , frontend side : react
+backend side : django , frontend side : react, state manage : reduce
 
 # 참조 사이트
 https://www.django-rest-framework.org/
@@ -36,10 +32,4 @@ https://www.youtube.com/watch?v=Uyei2iDA4Hs&t=245s
 
 # git repository
 https://github.com/andurogit/react_django_admin.git
-
-# 제 2장 Start
-
-https://www.youtube.com/watch?v=GieYIzvdt2U
-
-# 다른 환경에서 구동해 보기
 
