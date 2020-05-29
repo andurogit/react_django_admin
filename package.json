@@ -1,0 +1,35 @@
+{
+  "name": "react_django_admin",
+  "version": "1.0.0",
+  "description": "django built in react",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --mode development --watch ./react_django_admin_backend/frontend/src/index.js --output ./react_django_admin_backend/frontend/static/frontend/main.js",
+    "build": "webpack --mode production ./react_django_admin_backend/frontend/src/index.js --output ./react_django_admin_backend/frontend/static/frontend/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andurogit/react_django_admin.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andurogit/react_django_admin/issues"
+  },
+  "homepage": "https://github.com/andurogit/react_django_admin#readme",
+  "devDependencies": {
+    "@babel/core": "^7.10.1",
+    "@babel/preset-env": "^7.10.1",
+    "@babel/preset-react": "^7.10.1",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}
