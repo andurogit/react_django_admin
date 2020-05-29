@@ -12,8 +12,16 @@
 
 # React 자동 완성
 
-1. tips : 추천 extension ES7 React/Redux/GraphQL/React-Native snippets
-   1. 사용법 ex) js 파일 생성 후 rce + tab 하면 기본 react 소스가 입력 됨
+1.  tips : 추천 extension ES7 React/Redux/GraphQL/React-Native snippets
+    1. 사용법 ex) js 파일 생성 후 rce + tab 하면 기본 react 소스가 입력 됨
+1.  script 자동 완성
+    1.  .classname + tab div로 자동완성
+    1.  TagName.classname + tab TagName 으로 자동 완성
+    1.  설정 방법 setting ( ctrl + , ) 에서 emmet 으로 검색
+    1.  "emmet.triggerExpansionOnTab": true,
+    1.  "emmet.includeLanguages": {
+    1.       "javascript": "javascriptreact"
+    1.  }
 
 # 소스 정렬
 
