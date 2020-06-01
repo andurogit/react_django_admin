@@ -20,7 +20,7 @@
     1.  설정 방법 setting ( ctrl + , ) 에서 emmet 으로 검색
     1.  "emmet.triggerExpansionOnTab": true,
     1.  "emmet.includeLanguages": {
-    1.       "javascript": "javascriptreact"
+    1.        "javascript": "javascriptreact"
     1.  }
 
 # 소스 정렬
@@ -28,3 +28,7 @@
 1. extension name : Prettier - Code formatter
 1. 설치 후 설정 ( hotkey : ctrl + , ) 에서 format on save 검색하고 체크해두면
 1. 저장 시 파일 확장자에 따라 자동으로 이쁘게 정렬되어 저장 된다.
+
+# vscode line copy
+
+1. hotkey : shift + alt + down arrow
