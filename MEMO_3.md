@@ -113,6 +113,130 @@ const mapStateToProps = (state) => ({
 1. state 까지 데이터가 넘어 왔으면 이제 그리기만 하면 끝이다.
 1. table 그리기 팁 table.table.table-striped + tab
 
-# res, req workflow
+# delete 구현
+
+## leads component delete button 삽입
+
+```javascript
+<button
+  onClick={this.props.deleteLead.bind(this, lead.id)}
+  className="btn btn-danger btn-sm"
+>
+  Delete
+</button>
+```
+
+## actions 구현
+
+1. deleteLead 구현 actions > leads.js 에 delete 구현을 위해 type 선언
+   1. actions > types.js 에 delete type 추가 export const DELETE_LEAD = "DELETE_LEAD";
+1. type 을 import 받고
+1. delete axios 작성 ( \*\*\* 주의 : 삭제 시 get 이 아닌 delete로 넘겨야 한다. )
+
+```javascript
+// Delete
+export const deleteLead = (id) => (dispatch) => {
+  axios
+    .delete(`/api/leads/${id}/`)
+    .then((res) => {
+      dispatch({
+        type: DELETE_LEAD,
+        payload: id,
+      });
+    })
+    .catch((err) => console.log(err));
+};
+```
+
+## reducer 구현
+
+1. DELETE_LEAD type reducer 추가
+
+```javascript
+    case DELETE_LEAD:
+      return {
+        ...state,
+        leads: state.leads.filter((lead) => lead.id !== action.payload),
+      };
+
+```
+
+# Create data 구현
+
+1. form ( component ) 정의
+   1. state 추가 ( init data )
+1. leads component propTypes 정의
+   1. prop-types library 분석 필요
+   1. vaildate 하는거라는데 어렵다...
+1. form element를 작성하는데 영상에는 어디서 가저오는지 보이지 않음
+   1. 그냥 완성본에서 가져 옴 ( 부트스트랩에서 따왔을거다 중얼중얼...)
+   1. render() 함수안에 form 데이터를 가져올 state 정의 해줌
+      1. const { name, email, message } = this.state;
+   1. onChange, onSubmit 함수 정의
+1. form element 확인을 위해 webbrower 확인 해보니 안나옴... why??
+   1. webpack 이 안되는데?
+   1. 음... 강력 새로고침하니까 되네
+1. 폼과 리스트가 같이 있는화면에 자동으로 리프레쉬되게 만들거라는거 같다.
+1. 이제 type 선언을 하고
+1. action을 만들자 GET_LEADS 와 비슷하고 전달 방식이 POST 이다.
+1. reducer를 추가 하고
+1. Form.js 에 해야 할 일들이 많다
+   1. connect, Prop-types, addLeads 를 import 받고
+   1. export 때 state는 상속받을 필요없으니 null 로 넘기고 addLead 함수도 넘긴다.
+      1. `export default connect(null, { addLead })(Form);`
+   1. form 체크를 위해 static PropTypes를 선언 하고 다 필요한 항목이므로 func.isRequired 로 선언한다.
+   1. onSubmit 함수에 lead 정보가 넘어갈 수 있도록 구현한다.
+1. 중복값으로 데이터 생성 시에도 오류가 나는거 같은데 오류 매시지는 계속 Bad Request : /api/leads 이다
+   1. 예상하는 바 이후 영상에 오류처리도 있을 거다
+   1. 나와 같은 초심자들에게 이런 영상은 빛과 같다
+
+```javascript
+const { name, email, message } = this.state;
+const lead = { name, email, message };
+this.props.addLead(lead);
+```
+
+1. 엌 오류 난다
+   1. bad request 라는데
+   1. 원인은 post 로 넘길 때 form data 인 lead 객체를 넘겨주지 않아서 생긴 오류이다.
+
+# tips
+
+1. 지워진 데이터는 개발자도구 `diff` 탭에서 상세하게 확인 할 수 있다.
+
+# WorkFlow (res, req)
 
 1. 이게 지금 되게 해깔리는데...
+1. 하나에 api 를 구현하기 위해서 해야 될 항목들은 아래와 같이 정리 할 수 있겠다.
+   1. component 에서 구현 될 action 을 정의 한다.
+   1. 예를 들면 버튼을 만들고 클릭 시 해당 데이터를 지운다던지 ( type : APP_DELETE )
+   1. submit 버튼을 클릭 시 입력 된 폼에 데이터를 생성 한다 던지 ( type : APP_CREATE )
+1. 각 엑션에 대한 type 을 먼저 선언 해 준다.
+   1. 해당 프로젝트에선 src/actions/types 에 선언해 준다.
+   1. `export const DELETE_LEAD = "DELETE_LEAD"` 이런 식으로
+1. type 을 선언했으니 해당 타입에 대한 action 과 reducer 를 구현 해야 한다.
+1. src/actions/leads.js 에 타입에 대한 action 부터 구현한다.
+   1. 상기 `## actions 구현` 에 정의한 코드와 일치하며
+   1. 해당 action 에 axios 를 이용하여 서버와 통신한 데이터를 가져온다.
+   1. 주의 점은 통신 시 정의 된 api 에 따라 방식이 달라진다는 것이다. ( get, post, delete, update 등)
+1. src/reducers/leads.js
+   1. 상기 `## reducer 구현` 와 일치하며
+   1. 여기서 state 관리가 이루어 진다.
+1. workflow
+   1. client 에서 delete 버튼을 눌렀을 때를 예로 들면
+   1. leads.js ( componet ) 에 rendering 시 lead에 id 를 가지고 생성 되어 있으며 해당 버튼을 누를 시 props.deleteLead 를 통해 deleteLead 함수를 호출 한다.
+   1. 해당 컴포넌트에서 connect ( reduce function ) 함수를 통해 전달 되며
+      1. state 에 데이터는 mapStateToProps 라는 component 내부 함수에 의해 움직인다.
+      1. connect 인자로 넘긴 mapStateToProps, {getLeads, deleteLead}
+         1. mapStateToProps function 은 약속 된 명칭으로 보이며 react 에 props로 reducer에 함수를 연결 해주는 역할을 하는 듯 하다.
+   1. 지우기 버튼 동작을 수행 해줄 deleteLead 함수를 정의 한다.
+      1. action 을 생성하기 전에 type 을 먼저 만들어 준다.
+      1. 선언한 type 으로 deleteLead 함수를 정의 한다. ( action )
+         1. axios 를 이용한 서버와에 통신을 한다.
+      1. action 에 해단 reducer를 구현한다.
+         1. 선언된 type 대한 reducer를 switch 문을 이용하여 구현한다.
+   1. 구현해야 되는 구현체를 종합하면 간단하게 하기와 같다.
+      1. type
+      1. action
+      1. reducer
+      1. component
