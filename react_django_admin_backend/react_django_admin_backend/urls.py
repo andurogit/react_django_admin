@@ -20,4 +20,5 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
     path('',include('frontend.urls')), # frontend apps
     path('',include('leads.urls')), # backend server apis 
+    path('',include('accounts.urls')), # auth 
 ]

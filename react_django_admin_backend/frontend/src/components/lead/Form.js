@@ -23,6 +23,12 @@ export class Form extends Component {
     const { name, email, message } = this.state;
     const lead = { name, email, message };
     this.props.addLead(lead);
+    this.setState({
+      // 저장 후 클리어
+      name: "",
+      email: "",
+      message: "",
+    });
   };
 
   render() {

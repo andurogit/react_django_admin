@@ -148,3 +148,5 @@ export default function (state = initialState, action) {
 1. alert.js 에 mapStateToProps : state.messages 추가
    1. propsTypes 추가
    1. componentDidUpdate 에 message 추가
+1. GET_MESSAGE 는 필요 없는지 지우시네
+1. form.js setState 를 통한 저장 후 form clear 처리
