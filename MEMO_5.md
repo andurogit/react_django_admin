@@ -70,3 +70,15 @@
    1. 위배 될 경우 serializers.ValidationError를 통해 오류를 리턴한다.
 1. api.py
    1. class 구현 LoginAPI
+   1. post 형식
+   1. request 에서 name 과 password 를 valid 하고 통과 시 User 정보와 token 을 발행하는 api
+
+# app.py Get User 구현
+
+1. 이전에 구현된 UserSerializer 사용
+1. api.py
+   1. class 구현 UserAPI
+   1. POST 방식
+   1. 토큰과 유저정보가 일치하면 User 정보를 return 함
+   1. Post key : Authorization , value : register 로 등록 된 Token 키 정보
+   1. 상기 정보로 Post 전달 시 User 정보를 Get 할 수 있다.
