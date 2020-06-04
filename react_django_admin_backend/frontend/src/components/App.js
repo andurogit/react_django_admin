@@ -1,9 +1,12 @@
 import React, { Component, Fragment } from "react";
 import ReactDOM from "react-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
 import Header from "./layout/Hearder";
 import Dashboard from "./lead/Dashboard";
 import Alerts from "./layout/Alerts";
+import Login from "./accounts/Login";
+import Register from "./accounts/Register";
 
 // using redux
 import { Provider } from "react-redux";
@@ -24,13 +27,19 @@ class App extends Component {
     return (
       <Provider store={store}>
         <AlertProvier template={AlertTemplate} {...alertOptions}>
-          <Fragment>
-            <Header />
-            <Alerts />
-            <div className="container">
-              <Dashboard />
-            </div>
-          </Fragment>
+          <Router>
+            <Fragment>
+              <Header />
+              <Alerts />
+              <div className="container">
+                <Switch>
+                  <Route exact path="/" component={Dashboard} />
+                  <Route exact path="/register" component={Register} />
+                  <Route exact path="/login" component={Login} />
+                </Switch>
+              </div>
+            </Fragment>
+          </Router>
         </AlertProvier>
       </Provider>
     );
