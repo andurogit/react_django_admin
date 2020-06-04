@@ -82,3 +82,8 @@
    1. 토큰과 유저정보가 일치하면 User 정보를 return 함
    1. Post key : Authorization , value : register 로 등록 된 Token 키 정보
    1. 상기 정보로 Post 전달 시 User 정보를 Get 할 수 있다.
+1. logout url 구현
+   1. ursl.py
+   1. path('api/auth/logout', knox_views.LogoutView.as_view(), name = 'knox_logout')
+   1. post 형식으로 logout 전달 시 Auth token 정보 clear 되어 api/auth/user 를 요청해도 가져올 수 없도록 처리 된다.
+1. 이런 view 들을 knox 나 rest_framework 에서 처리해 주니 코디해야할 소스량이 현저히 줄어든다.
