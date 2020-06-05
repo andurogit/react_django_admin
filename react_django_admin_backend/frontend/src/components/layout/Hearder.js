@@ -1,8 +1,51 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
+import { logout } from "../../actions/auth";
+
 export class Hearder extends Component {
+  static propTypes = {
+    auth: PropTypes.object.isRequired,
+    logout: PropTypes.func.isRequired,
+  };
+
   render() {
+    const { isAuthenticated, user } = this.props.auth;
+
+    const authLinks = (
+      <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
+        <span className="navbar-text mr-3">
+          <strong>{user ? `Welcome ${user.username}` : ""}</strong>
+        </span>
+        <li className="nav-item">
+          <button
+            onClick={this.props.logout}
+            className="nav-link btn btn-info btn-sm text-light"
+          >
+            Logout
+          </button>
+        </li>
+      </ul>
+    );
+
+    const guestLinks = (
+      <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li className="nav-item">
+          <Link to="/register" className="nav-link">
+            Register
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/login" className="nav-link">
+            Login
+          </Link>
+        </li>
+      </ul>
+    );
+
     return (
       <nav className="navbar navbar-expand-sm navbar-light bg-light">
         <div className="container">
@@ -19,38 +62,18 @@ export class Hearder extends Component {
           </button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
             <a className="navbar-brand" href="#">
-              Lead manager!
+              Lead manager
             </a>
-            <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-              <li className="nav-item">
-                <Link to="/register" className="nav-link">
-                  Register
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/login" className="nav-link">
-                  Login
-                </Link>
-              </li>
-              {/* <li className="nav-item active">
-                        <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="#">Link</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                    </li> */}
-            </ul>
-            {/* <form className="form-inline my-2 my-lg-0">
-                    <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form> */}
           </div>
+          {isAuthenticated ? authLinks : guestLinks}
         </div>
       </nav>
     );
   }
 }
 
-export default Hearder;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { logout })(Hearder);

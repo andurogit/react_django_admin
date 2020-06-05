@@ -44,9 +44,31 @@
 # router 구현
 
 1. src/common 폴더 생성
-1. privateRouter.js 생성
+1. PrivateRouter.js 생성
    1. rcf + tab ( fucntion 형태 react 생성 )
    1. arrow function 으로 만들거임
+      1. const PrivateRouter 를 지정 하고 parameter 로 Component, auth, ...rest 를 넣는다.
+      1. component 들을 render할 떄 auth를 가지고 페이지를 Private 하게 만드려는 의도 인거 같다.
+      1. 중간 다리 역할을 위해 props 와 state 전달에 유의하자
+1. 이렇게 생성 된 PrivateRouter는 App.js 에서 Router 대신 PrivateRouter 로 대체 된다.
+
+# router 분기 처리
+
+1. PrivateRouter 진입 시
+   1. isLoading , isAuthenticated 에 따라 각기 다른 render 로 분기 처리 한다.
+
+# redux reducer구현
+
+1. type.js 에 USER_LOADING, USER_LOADED, AUTH_ERROR 선언
+1. reducer 폴더에 auth.js 생성 후 구현
+   1. USER_LOADING : state 전달 isLoading true
+   1. USER_LOADED : state, isAuthenticated true, isLoading false, user 정보 payload
+   1. AUTH_ERROR : 모두 초기화 , storage token item 삭제
+
+# redux action 구현
+
+1. actions 폴더에 auth.js 생성
+1. loadUser 함수 구현
 
 # Router 차이
 

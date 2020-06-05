@@ -1,4 +1,9 @@
-import { GET_LEADS, DELETE_LEAD, ADD_LEAD } from "../actions/types.js";
+import {
+  GET_LEADS,
+  DELETE_LEAD,
+  ADD_LEAD,
+  CLEAR_LEADS,
+} from "../actions/types.js";
 
 const initialState = {
   something: "text",
@@ -21,6 +26,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         leads: [...state.leads, action.payload],
+      };
+    case CLEAR_LEADS:
+      return {
+        ...state,
+        leads: [],
       };
     default:
       return state;
