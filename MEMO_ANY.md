@@ -17,24 +17,36 @@ serializer 와 viewset 인 듯 하다.
 
 1. django 에서 python manage.py startapp "appName" 으로 어플리케이션을 생성하면
 1. 폴더 안에 models라는 기본생성 파일이 나오는데 여기에다가 테이블 정보를 입력 한다.
-    1. 테이블 컬럼 정보들을 말이다.
-    1. https://docs.djangoproject.com/en/3.0/ref/models/fields/ 여기를 참조하자
+   1. 테이블 컬럼 정보들을 말이다.
+   1. https://docs.djangoproject.com/en/3.0/ref/models/fields/ 여기를 참조하자
 1. 정의가 끝이나면 admin 명령어로 마이그레이션을 수행하면 데이터베이스에 정의된 컬럼대로 테이블이 생성 된다.
-    1. python manage.py makemigrations "appName"
-    1. python manage.py migrate 
+   1. python manage.py makemigrations "appName"
+   1. python manage.py migrate
 1. 기본 생성 파일에는 존재하지 않는 serializer를 정의 해줘야한다. 해당 파일을 참조 하자
 1. 또 기본 생성 파일에 존재하지 않는 api ( viewset ) 을 위에서 정의한 model 과 serializer를 통해 정의하자.
-    1. 이 파일에서 권한도 같이 설정 된다.
+   1. 이 파일에서 권한도 같이 설정 된다.
 1. 이렇게 정의된 serializer 와 api(viewset) 을 urls.py 에 router를 이용해 urlMapping 으로 넘겨주면 rest_framework 에 한 사이클 기본 정의가 완료 된다.
 1. 기본으로 정의 된 rest 는 urls.py 에서 DefaultRouter 를 사용 했다면 선언만으로도 CRUD 모두가 가능해 진다.
-    1. 예를 들면 get 방식으로 요청한 rest 는 데이터 list를 반환하고
-    1. post 방식으로 데이터를 보내면 create 되며
-    1. pattern명칭에 /update 또는 /delete 로 pk를 전달하면 지우기와 데이터 update 도 가능하다.
+   1. 예를 들면 get 방식으로 요청한 rest 는 데이터 list를 반환하고
+   1. post 방식으로 데이터를 보내면 create 되며
+   1. pattern명칭에 /update 또는 /delete 로 pk를 전달하면 지우기와 데이터 update 도 가능하다.
 
 사용방법만 숙지하면 기본 django 프레임워크를 최소한에 코딩으로 많은 일을 할 수 있다.
 또한 프레임웍 자체에서 정의 된 urlpattern 들로 테스트 할 수 있는 기본페이지가 제공되어 개발에 매우 유용하다.
-* 실제 빌드 시 해당 페이지를 숨기거나 유저들이 사용할 수 없도록 만들 수 있는지는 고려해 봐야겠다.
+
+- 실제 빌드 시 해당 페이지를 숨기거나 유저들이 사용할 수 없도록 만들 수 있는지는 고려해 봐야겠다.
 
 이상 기본중에 기본으로 restframework 사용 방법을 정리해 보았고 실제 코딩이나 상세사항은
 MEMO_1.md 파일을 참조하면 되겠다.
 
+# 튜토리얼 종료 후
+
+1. 튜토리얼은 끝났으나 프로세스 진행이 되지 않는다.
+1. "/" 로 접속 시 로그인이 되어 있지 않을 경우 login 페이지로 이동해야 하는데 로그인 되어 있는 상태로 보인다.
+   1. 추적 시작 "/" 로 접속시 App.js 에 PrivateRouter 로 접속 되며
+   1. didmount 함수에 의해 loadUser 로 들어간다.
+   1. USER_LOADED : isAuth 가 true 로 되어 있었는데 처음 로딩하면 무조건 true로 되어 있어 로그인 되어버리는거 같아 false로 변경
+   1. 기타 로그인 프로세스 전송 방식 등 오류 처리 하여 해당 이슈는 해결 됨
+   1. 본래 소스에는 true 인데 정상동작하네??
+   1. 토큰이 없으면 USER_LOADED 가 아닌 exception 이 발생해야하는데 tokenConfig(getState) 이 function이 제대로 동작 안하는거 같다
+1. 해당 페이지 크롬에서 암호 보안 메시징이 됨 확인 필요 함

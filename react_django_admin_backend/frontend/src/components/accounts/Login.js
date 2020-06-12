@@ -15,7 +15,7 @@ export class Login extends Component {
     isAuthenticated: PropTypes.bool,
   };
 
-  onSubmit = (event) => {
+  onSubmit = (e) => {
     e.preventDefault();
     //console.log("submit");
     this.props.login(this.state.username, this.state.password);
