@@ -20,8 +20,7 @@ export class Register extends Component {
   };
 
   onSubmit = (event) => {
-    e.preventDefault();
-    // console.log("submit");
+    event.preventDefault();
     const { username, email, password, password2 } = this.state;
     if (password !== password2) {
       this.props.createMessage({ passwordNotMatch: "Passwords do not match" });
@@ -29,8 +28,8 @@ export class Register extends Component {
       // 순서 맞출 것
       const newUser = {
         username,
-        passsword,
         email,
+        password,
       };
       this.props.register(newUser);
     }
